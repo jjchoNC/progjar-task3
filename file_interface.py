@@ -30,11 +30,10 @@ class FileInterface:
         try:
             filename = params[0]
             filedata = params[1]
-            print(filedata)
             decoded = base64.b64decode(filedata.encode())
             with open(filename, 'wb') as f:
                 f.write(decoded)
-            return dict(status='OK', data='upload berhasil')
+            return dict(status='OK', data_namafile=filename, data_file=filedata)
         except Exception as e:
             return dict(status='ERROR', data=str(e))
 
@@ -42,7 +41,7 @@ class FileInterface:
         try:
             filename = params[0]
             os.remove(filename)
-            return dict(status='OK', data='file berhasil dihapus')
+            return dict(status='OK', data_filename=filename)
         except Exception as e:
             return dict(status='ERROR', data=str(e))
 

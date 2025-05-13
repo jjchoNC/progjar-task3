@@ -61,7 +61,7 @@ def remote_get(filename=""):
         fp.close()
         return True
     else:
-        print("Gagal")
+        print(hasil)
         return False
 
 def remote_post(filename=""):
@@ -72,11 +72,12 @@ def remote_post(filename=""):
         hasil = send_command(command_str)
         if hasil['status'] == 'OK':
             print(hasil)
+            return True
         else:
             print("Upload gagal:", hasil['data'])
-        return hasil['status'] == 'OK'
+            return False
     except Exception as e:
-        print("Terjadi kesalahan:", str(e))
+        print(hasil)
         return False
 
 def remote_delete(filename=""):
@@ -84,12 +85,14 @@ def remote_delete(filename=""):
     hasil = send_command(command_str + "\r\n\r\n")
     if hasil['status'] == 'OK':
         print(hasil)
+        return True
     else:
-        print("Gagal menghapus:", hasil['data'])
-    return hasil['status'] == 'OK'
+        print(hasil)
+        return False
 
 if __name__=='__main__':
-    server_address=('172.16.16.101',6666)
+    # server_address=('172.16.16.101',6666)
+    server_address=('localhost',6666)
     remote_list()
     remote_get('donalbebek.jpg')
     remote_post('donalbebek.jpg')
